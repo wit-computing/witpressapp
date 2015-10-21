@@ -1,0 +1,12 @@
+#{extends 'main.html' /} 
+#{set title:'Members' /} 
+#{mainmenu id:"members", user:user /}
+
+<section class="ui two column middle aligned grid raised segment">
+  <div class="column">
+    #{members users:users /} 
+  </div>
+  <div class="column">
+    <img src="/public/images/simpsons2.gif" class="ui large image">
+  </div>
+</section>  

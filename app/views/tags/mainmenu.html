@@ -1,0 +1,20 @@
+<nav class="ui tabluar menu">
+  <div class="title item"> Spacebook </div>
+  <a id="blog"    class="item" href="/blog">Blog</a>
+  <a id="members" class="item" href="/members">Members</a>
+  <a id="profile" class="item" href="/profile">Profile</a>
+  <div class="right menu">
+    <div class="item"> Logged in as ${_user.firstName} ${_user.lastName} </div>
+    <div class="ui dropdown item">
+      <i class="ui user icon"></i>
+      <div class="menu">
+        <a class="item" href="/logout">Logout</a> 
+      </div>
+    </div>  
+   </div> 
+</nav> 
+
+<script>
+  $("#${_id}").addClass("active item");
+</script>
+

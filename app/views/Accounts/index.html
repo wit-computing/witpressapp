@@ -1,0 +1,24 @@
+#{extends 'main.html' /}
+#{set title:'Welcome to Spacebook' /}
+
+<nav class="ui tabular menu">
+  <header class="ui header item"> Spacebook </header>
+  <div class="right menu">
+    <a class="item" href="/signup"> Signup  </a>
+    <a class="item" href="/login">  Login   </a>
+  </div>
+</nav> 
+
+<section class="ui two column middle aligned grid raised segment">
+  <div class="column">
+
+    <section class="ui raised segment">
+      <p> Signup or Log in to the Spacebook Service </p>
+    
+    #{members users:users /} 
+  </section>
+  </div>
+  <div class="column">
+    <img src="/public/images/simpsons3.gif" class="ui large image">
+  </div>
+</section>  

@@ -1,0 +1,49 @@
+#{extends 'main.html' /}
+#{set title:'Blog' /}
+
+<nav class="ui tabluar menu">
+  <a  class="item" href="/home">Spacebook</a>
+  <div class="right menu">
+    #{if loggedInUser}
+      <div class="item"> Logged in as ${loggedInUser.firstName} ${loggedInUser.lastName} </div>
+    #{/if}
+    #{else}
+      <a class="item" href="/login"> Log in to comment </a>
+    #{/else}
+  </div>
+</nav> 
+
+<section class="ui raised segment">
+
+  <div class="ui small header">${user.firstName} ${user.lastName} 's Blog</div>
+  <hr>
+  
+  <section class="ui raised segment">
+
+    #{list items:user.posts, as:'post'}
+      <div class="ui small header"> ${post.title}</div>
+      <hr>
+      <p> ${post.content} </a> 
+      
+      <section class="ui raised segment">
+      
+      <div class="ui small header">Comments:</div>
+      #{list items:post.comments, as:'comment'}
+        <p> 
+          ${comment.content} : ${comment.author.firstName} : on : ${comment.postedAt.format('dd MMM yy HH:mm:ss')}
+        </p>                 
+      #{/list}  
+      #{if loggedInUser}
+        <section class="ui form segment">
+          <form action="/blog/publicblog/${user.id}/newcomment/${post.id}" method="POST">
+            <div class="field">
+              <textarea name="content" placeholder="Content"></textarea>
+            </div>
+            <button class="ui mini button green submit labeled icon"><i class="icon edit"></i> Add Comment </button>
+          </form>
+        </section>
+      #{/if}
+      </section>   
+    #{/list}
+  </section>
+</section>  

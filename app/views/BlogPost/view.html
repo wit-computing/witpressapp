@@ -1,0 +1,39 @@
+#{extends 'main.html' /}
+#{set title:'Blog' /}
+
+<nav class="ui tabluar menu">
+  <header class="header item"> Spacebook </header>
+  <div class="right menu">
+    <div class="item"> Logged in as ${user.firstName} ${user.lastName} </div>
+    <a class="active item" href="/blog">Blog</a>
+  </div>
+</nav> 
+
+<section class="ui raised segment">
+  <div class="ui small header"> ${post.title}</div>
+  <p> 
+    ${post.content}:
+  </p>
+  <a href="/blog/deletepost/${post.id}" class="ui mini button red labeled icon"><i class="icon delete"></i> Delete </a>
+  
+  <section class="ui raised segment">
+    <div class="ui small header">Comments:</div>
+    #{list items:post.comments, as:'comment'}
+      <p> 
+        ${comment.content} : ${comment.author.firstName} : on : ${comment.postedAt.format('dd MMM yy HH:mm:ss')}
+        <hr>
+      </p>
+    #{/list}  
+  </section>
+  
+</section>
+
+<section class="ui form segment">
+  <div class="ui small header">Add a comment</div>
+  <form action="/blogpost/comment/${post.id}" method="POST">
+    <div class="field">
+      <textarea name="content" placeholder="Content"></textarea>
+    </div>
+    <button class="ui mini button green submit labeled icon"><i class="icon edit"></i> add </button>
+  </form>
+</section>

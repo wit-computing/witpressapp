@@ -1,0 +1,30 @@
+  <table class="ui table">
+    <thead>
+      <tr>
+        <th>status</th>
+        <th>Name</th>
+        <th>blog</th>       
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        #{list items:_users, as:'user'}
+        <tr>
+          <td>
+            #{if user.online}
+              <i class="user green icon"></i>
+            #{/if}
+            #{else}
+              <i class="user red icon"></i>
+            #{/else}
+          </td>
+          <td>
+            ${user.firstName} ${user.lastName}
+          </td>
+          <td>
+            <a href="/blog/publicblog/${user.id}"> Blog </a>
+          </td>
+        </tr>
+        #{/list}
+    </tbody>
+  </table>  

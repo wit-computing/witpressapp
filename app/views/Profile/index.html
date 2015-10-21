@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+#{set title:'Edit Details' /}
+
+#{mainmenu id:"profile", user:user/} 
+
+<section class="ui two column middle aligned grid raised segment">
+  <div class="column">
+	<div class="ui raised form segment">
+	  <form action="/editprofile/change" method="POST">
+	    <div class="two fields">
+	      <div class="field">
+	        <label>First Name</label>
+	        <input placeholder="First Name" type="text" name="firstName" value="${user.firstName}">
+	      </div>
+	      <div class="field">
+	        <label>Last Name</label>
+	        <input placeholder="Last Name" type="text" name="lastName" value="${user.lastName}">
+	      </div>
+	    </div>
+	   <div class="field">
+	      <label>Email</label>
+	      <input placeholder="Email" type="text" name="email" value="${user.email}">
+	    </div>
+	    <div class="field">
+	      <label>Password</label>
+	      <input type="password" name="password">
+	    </div>
+	    <button class="ui blue submit button">Submit</button>
+	  </form>
+	</div> 
+  </div>
+  <div class="column">
+    <img src="/public/images/simpsons3.gif" class="ui large image">
+  </div>
+</section>  	
+	

@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Blog' /}
+#{mainmenu id:"blog", user:user/}
+
+<section class="ui two column raised grid segment">
+  <div class="row">
+    <div class="ui column">
+      #{createpost /} 
+    </div>
+    <div class="column">
+      #{displaypostsummaries posts:user.posts /} 
+    </div>
+  </div>
+</section>

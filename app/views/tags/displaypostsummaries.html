@@ -1,0 +1,10 @@
+<section class="ui raised segment">
+  <div class="ui small header">Published Posts</div>
+  <hr>
+  #{list items:_posts, as:'post'}
+    <div class="ui item"> 
+      <i class="url large basic icon"></i>
+      <a href="/blogpost/view/${post.id}"> ${post.title} </a> 
+    </div>
+  #{/list}
+</section>
