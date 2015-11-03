@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Comment;
 import models.Post;
 import models.User;
 
@@ -92,4 +93,23 @@ public class BlogTest extends UnitTest
     User anotherUser = User.findByEmail("bob@jones.com");
     assertEquals(0, anotherUser.posts.size());   
    }  
+  
+  @Test
+  public void testCreatePostWithComment()
+  {
+    Post aPost = new Post ("Post Title", "This is the post content");
+    bob.posts.add(aPost);
+    
+    Comment comment = new Comment (bob, "This is a comment");
+    aPost.comments.add(comment);
+    bob.save();
+
+    
+    User user = User.findByEmail("bob@jones.com");
+    List<Post> posts = user.posts;
+    Post thePost = posts.get(0);
+    assertEquals(thePost.comments.size(), 1);
+    Comment theComment = thePost.comments.get(0);
+    assertEquals(theComment.content, "This is a comment");
+  }
 }

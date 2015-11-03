@@ -14,24 +14,21 @@ import org.junit.Test;
 import play.test.Fixtures;
 import play.test.UnitTest;
 
+
 public class CommentTest  extends UnitTest
 {
   private User bob;
-  private Post aPost;
   
-  @BeforeClass
-  public static void loadDB()
-  {
-    Fixtures.deleteAllModels();
-  }
-
   @Before
   public void setup()
   {
-    bob   = new User("bob", "jones", "bob@jones.com", "secret");
-    aPost = new Post ("Post A", "This is the post A content");
+    bob = new User("bob", "jones", "bob@jones.com", "secret");
+    Post aPost = new Post ("Post A", "This is the post A content");
+    Post bPost = new Post ("Post B", "This is the post B content");
+    Post cPost = new Post ("Post C", "This is the post C content");
     bob.posts.add(aPost);
-    aPost.save();
+    bob.posts.add(bPost);
+    bob.posts.add(cPost);
     bob.save();
   }
   
@@ -45,40 +42,42 @@ public class CommentTest  extends UnitTest
   public void testAddComment()
   {
     User user = User.findByEmail("bob@jones.com");
-    
+    Post post = user.posts.get(1);
     Comment comment1 = new Comment(user, "Comment 1");
-    comment1.save();
-    
-    Post post = user.posts.get(0);
+    Comment comment2 = new Comment(user, "Comment 2");
+    Comment comment3 = new Comment(user, "Comment 3");
     post.comments.add(comment1);
-    post.save();
+    post.comments.add(comment2);
+    post.comments.add(comment3);
     user.save();
     
     User anotherUser = User.findByEmail("bob@jones.com");
-    assertEquals("Comment 1", anotherUser.posts.get(0).comments.get(0).content);
+    assertEquals("Comment 1", anotherUser.posts.get(1).comments.get(0).content);
+    assertEquals("Comment 2", anotherUser.posts.get(1).comments.get(1).content);    
+    assertEquals("Comment 3", anotherUser.posts.get(1).comments.get(2).content);
   }
-  
-  @Test
-  public void testAddDeleteComment()
-  {
-    User user = User.findByEmail("bob@jones.com");
-    Comment comment1 = new Comment(user, "Comment 1");
-    comment1.save();
-    
 
-    Post post = user.posts.get(0);
-    post.comments.add(comment1);
-    post.save();
-    user.save();
+  @Test
+  public void testDeleteComment()
+  {
+	User user = User.findByEmail("bob@jones.com");
+	Post post = user.posts.get(1);
+	Comment comment1 = new Comment(user, "Comment 1");
+	Comment comment2 = new Comment(user, "Comment 2");
+	Comment comment3 = new Comment(user, "Comment 3");
+	post.comments.add(comment1);
+	post.comments.add(comment2);
+	post.comments.add(comment3);
     
     User anotherUser = User.findByEmail("bob@jones.com");
-    assertEquals("Comment 1", anotherUser.posts.get(0).comments.get(0).content);
-    
-    post.comments.clear();
-    post.save();
-    comment1.delete();
+    Post anotherPost = anotherUser.posts.get(1);
+    Comment comment = anotherPost.comments.remove(1);
+    user.save();
+    comment.delete();
     
     User yetAnotherUser = User.findByEmail("bob@jones.com");
-    assertEquals(0, yetAnotherUser.posts.get(0).comments.size());
+    assertEquals("Comment 1", yetAnotherUser.posts.get(1).comments.get(0).content);
+    assertEquals("Comment 3", yetAnotherUser.posts.get(1).comments.get(1).content);    
   }
+  
 }
